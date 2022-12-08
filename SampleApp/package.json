@@ -1,0 +1,16 @@
+{
+  "name": "sampleapp",
+  "version": "1.0.0",
+  "description": "샘플어플리케이션",
+  "main": "\t",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "package.json": "^2.0.1"
+  }
+}

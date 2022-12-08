@@ -1,0 +1,102 @@
+
+            <!--우측 상단 헤더 영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>관리자정보관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/Home/Index">Home</a>>
+                        </li>
+                        <li>
+                            <a>관리자정보관리</a>>
+                        </li>
+                        <li class="active">
+                            <strong>게시글조회</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderNo">제목</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderName">메일주소</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="MobileNo">게시여부</label>
+                                <select class="form-control">
+                                    <option value="Y">게시함</option>
+                                    <option value="N">게시안함</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary">조회</button>
+                        <a href="#" class="btn btn-info">신규</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">글번호</th>
+                                                <th width="10%">작성자</th>
+                                                <th width="20%">메일주소</th>
+                                                <th width="20%">글제목</th>
+                                                <th width="10%">조회수</th>
+                                                <th width="10%">게시여부</th>
+                                                <th width="20%">등록일</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="hoverTblBody">
+                                            <% for(var i =0;i<articles.length;i++){ %>
+                                                <tr>
+                                                    <td><a href="#"><%= articles[i].article_id %></a></td>
+                                                    <td><a href="#"><%= articles[i].writer %></a></td>
+                                                    <td><a href="/articles/modify<%= articles[i].article_id %>"></a></td>
+                                                    <td><a href="/articles/modify?aid=<%= articles[i].article_id %>"><%= articles[i].title %></a></td>
+                                                    <td>1</td>
+                                                    <td>
+                                                    <% if(articles[i].display == "Y"){%>
+                                                    게시
+                                                    <% } else{ %>
+                                                    게시안함
+                                                    <% }%></td>
+                                                    <td>2022-12-06</td>
+                                                </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
