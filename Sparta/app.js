@@ -66,7 +66,6 @@ router.patch("/todos/:todoId", async (req, res) => {
     if (todo){
       todo.done = done;
       todo.doneAt = new Date();
-      
     }
   }
   await todo.save();
