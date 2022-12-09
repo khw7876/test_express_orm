@@ -66,7 +66,10 @@ router.patch("/todos/:todoId", async (req, res) => {
     if (todo){
       todo.done = done;
       todo.doneAt = new Date();
+<<<<<<< HEAD
+=======
       
+>>>>>>> 10306c6 (test MongoDB API)
     }
   }
   await todo.save();
