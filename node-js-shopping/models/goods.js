@@ -1,22 +1,30 @@
-
-const mongoose = require("mongoose");
-
-// 스키마를 정의하는데 테이블 당 어떠한 값이 들어가는지 정의 (여기가 django의 models.py 라고 보면 된다.)
-const GoodsSchema = new mongoose.Schema({
-    name : String,
-    thumbnailIrl : String,
-    category : String,
-    price : Number
-});
-
-// 테이블을 지정해 주었다면, 거기에는 없지만, 새로 쓰고 싶은 데이터를 정의 할 때 사용한다.
-GoodsSchema.virtual("goodsid").get(function(){
-    return this._id.toHexString();
-});
-// Json 형식으로 사용 할 것이고, virtuals를 허용한다는 뜻 
-GoodsSchema.set("toJSON", {
-    virtuals : true,
-});
-
-
-module.exports = mongoose.model("Goods", GoodsSchema);
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Goods extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Goods.init({
+    goodsId: {
+      primaryKey : true,
+      type : DataTypes.INTEGER
+    },
+    name: DataTypes.STRING,
+    thumbnailUrl: DataTypes.STRING,
+    catefoty: DataTypes.STRING,
+    price: DataTypes.DECIMAL
+  }, {
+    sequelize,
+    modelName: 'Goods',
+  });
+  return Goods;
+};

@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const { Op } = require("sequelize");
 
-const User = require("../models/user")
-const authmiddleware = require('../middlewares/auth-middleware')
+const { User } = require("../models/user")
+const authmiddleware = require('../middlewares/auth-middleware');
 
 const postUsersSchema = Joi.object({
     nickname: Joi.string().required(),
@@ -26,8 +27,10 @@ router.post('/api/users', async(req,res) => {
     try{
 
         const {nickname, email, password, confirmPassword} = await postUsersSchema.validateAsync(req.body);
-        const check_user_exist = await User.findOne({
-            $or: [{email}, {nickname}]
+        const check_user_exist = await User.findAll({
+            where : {
+                [Op.or]: [{ nickname }, {email}],
+            },
         });
         if(check_user_exist){
             res.status(400).send({
@@ -42,8 +45,8 @@ router.post('/api/users', async(req,res) => {
             return;
         }
         else{
-            const user = new User({nickname, email, password})
-            await user.save()
+            await User.create({nickname, email, password});
+
             res.status(201).send({
                 successMessage : "회원가입이 완료 되었습니다."
             });
@@ -61,7 +64,9 @@ router.post('/api/users', async(req,res) => {
 // 로그인
 router.post('/api/auth', async(req, res) => {
     const {email, password} = req.body;
-    const user = await User.findOne({email});
+    const user = await User.findOne({
+        where : {email}
+    });
     if (!user){ 
         res.status(404).send({
             errorMessage : "입력하신 이메일과 일치하는 사용자가 존재하지 않습니다."
